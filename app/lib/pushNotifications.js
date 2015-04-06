@@ -112,3 +112,30 @@ function pushRegisterSuccess(_userId, _data, _callback) {
 		});
 	});
 }
+
+//Subscribe to push notification channels
+exports.subscribe = function(_channel, _token, _callback) {
+	Cloud.PushNotifications.subscribe({
+		channel : _channel,
+		device_token : _token,
+		type : OS_IOS ? 'ios' : 'android'
+	}, function(_event) {
+		
+		var msgStr = "Subscribed to " + _channel + " Channel";
+		Ti.API.debug(msgStr + ': ' + _event.sucess);
+		
+		if(_event.success) {
+			_callback({
+				success : true,
+				error : null,
+				msg : msgStr
+			});
+		} else {
+			_callback({
+				success : false,
+				error : _event.data,
+				msg : "Error Subscribing to All Channels"
+			});
+		}
+	});
+};
