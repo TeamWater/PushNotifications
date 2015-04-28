@@ -32,7 +32,7 @@ funcion initializePushNotifications(_user) {
 		
 		//display the information in an alert
 		if (OS_ANDROID) {
-			Ti.UI.createAlertDialod({
+			Ti.UI.createAlertDialog({
 				title : payload.android.title || "Alert",
 				message : payload.android.alert || "",
 				buttonNames : ['Ok']
